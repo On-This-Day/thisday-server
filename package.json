@@ -1,0 +1,28 @@
+{
+  "name": "thisday-server",
+  "version": "1.0.0",
+  "description": "Code Fellows 301 Final Team Project *Showing people what was happening on the day they choose.*",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/On-This-Day/thisday-server.git"
+  },
+  "author": "Steve, Suzanne, Mikayla, Brent, Kris",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/On-This-Day/thisday-server/issues"
+  },
+  "homepage": "https://github.com/On-This-Day/thisday-server#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "pg": "^7.4.1",
+    "superagent": "^3.8.2"
+  },
+  "devDependencies": {}
+}
