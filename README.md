@@ -28,7 +28,8 @@ Code Fellows 301 Final Team Project
 This is a way for anyone to see what was happening on the day they were born (or a day they choose). 
 
 ## Research/Sources
-
+gitignore from https://www.gitignore.io/api/osx,linux,node,vim
+eslintrc.json obtauned from Code Fellows
 
 
 
