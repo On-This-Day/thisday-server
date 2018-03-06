@@ -33,8 +33,7 @@ app.get('/nyt/articles/:year/:month', bodyparser, (request, response) => {
   superagent(url)
     .set(`api-key`, `${NYT_API_KEY}`)
     .then(articles => response.send(articles))
-    .then(console.log(response));
-  // .catch(console.error);
+    .catch(console.error);
 });
 
 app.get('/api/v1/users', (request, response) => {

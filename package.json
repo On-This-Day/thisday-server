@@ -21,9 +21,9 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "imdb-api": "^3.1.2",
     "pg": "^7.4.1",
-    "superagent": "^3.8.2"
+    "superagent": "^3.8.2",
+    "nodemon": "^1.17.1"
   },
   "devDependencies": {}
 }
