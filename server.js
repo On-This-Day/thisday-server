@@ -28,11 +28,11 @@ client.on('error', err => console.error(err));
 //Application Middleware goes here
 
 // url: 'https://api.nytimes.com/svc/archive/v1/2016/1.json?' + NYT_API_KEY,
-app.get('/nyt/articles', bodyparser, (request, response) => {
-  const url = `https://api.nytimes.com/svc/archive/v1/1960/1.json?`;
+app.get('/nyt/articles/:year/:month', bodyparser, (request, response) => {
+  const url = `https://api.nytimes.com/svc/archive/v1/${request.params.year}/${request.params.month}.json?`;
   superagent(url)
     .set(`api-key`, `${NYT_API_KEY}`)
-    .then(articles => response.send(JSON.stringify(articles)))
+    .then(articles => response.send(articles))
     .then(console.log(response));
     // .catch(console.error);
 });
