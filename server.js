@@ -37,7 +37,7 @@ app.get('/nyt/articles/:year/:month', bodyparser, (request, response) => {
     // .catch(console.error);
 });
 
-app.get('/', (request, response) => response.send('Testing App'));
+app.get('/test', (request, response) => response.send('Testing App'));
 
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
 
