@@ -27,18 +27,23 @@ client.on('error', err => console.error(err));
 
 //Application Middleware goes here
 
-// url: 'https://api.nytimes.com/svc/archive/v1/2016/1.json?' + NYT_API_KEY,
+url: 'https://api.nytimes.com/svc/archive/v1/2016/1.json?' + NYT_API_KEY,
 app.get('/nyt/articles/:year/:month', bodyparser, (request, response) => {
   const url = `https://api.nytimes.com/svc/archive/v1/${request.params.year}/${request.params.month}.json?`;
   superagent(url)
     .set(`api-key`, `${NYT_API_KEY}`)
     .then(articles => response.send(articles))
     .then(console.log(response));
-    // .catch(console.error);
+  // .catch(console.error);
 });
+
+app.get('/api/v1/users', (request, response) => {
+  client.query(`SELECT * FROM users;`)
+    .then(results => response.send(results.rows))
+    .catch(console.error);
+});
+
 
 app.get('/test', (request, response) => response.send('Testing App'));
 
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
-
-
