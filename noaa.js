@@ -1,10 +1,9 @@
 'use strict';
 
 var app = app || {};
-// TO DO: const __TOKEN__= SET TOKEN IN HEROKU
+// TO DO: const __NOAA_TOKEN__= SET TOKEN IN HEROKU
 
 (function(module){
-  // TODO FIX THIS FUNCTION!!!
   let weather = {};
   weather.handle= data =>{
     console.log('success', data.results[0].datatype);
@@ -41,11 +40,15 @@ var app = app || {};
 
     $.getJSON({
       url:`https://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&locationid=CITY:US530018&startdate=${date}&enddate=${dateIncrease(date)}`,
-      headers: {token:__TOKEN__}}, data=> {
-      console.log('data', data)
-	    console.log('success', data.results[0].datatype);
-      weather.type = data.results[0].datatype;
-      });
+      headers: {token:__NOAA_TOKEN__}}, data=> {
+      weather.data = data.results
+        .filter (x => x.station === data.results[0].station)
+        .map(x => {
+          let out = {};
+          out[x.datatype] = x.value;
+          return out;
+        });
+    });
   };
   module.weather = weather;
 })(app);
