@@ -8,11 +8,12 @@ var app = app || {};
   let weather = {};
   weather.handle= data =>{
     console.log('success', data.results[0].datatype);
+    weather.type = data.results[0].datatype;
   };
 
   weather.fetch = date => {
-    let dateIncrease = date => {
-      let array = date.split('-');
+    let dateIncrease = day => {
+      let array = day.split('-');
       let months = {
         '01': 31,
         '02': (array[0]%4 === 0) ? 29 : 28,
@@ -40,7 +41,11 @@ var app = app || {};
 
     $.getJSON({
       url:`https://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&locationid=CITY:US530018&startdate=${date}&enddate=${dateIncrease(date)}`,
-      headers: {token:__TOKEN__}}, weather.handle);
+      headers: {token:__TOKEN__}}, data=> {
+      console.log('data', data)
+	    console.log('success', data.results[0].datatype);
+      weather.type = data.results[0].datatype;
+      });
   };
   module.weather = weather;
 })(app);
