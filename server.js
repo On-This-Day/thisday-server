@@ -77,12 +77,12 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
   // .catch(console.error);
 });
 
-app.get('https://history.muffinlabs.com/date/:month/:day',(request, response) => {
-  const url = `https://history.muffinlabs.com/date/${request.params.month}/${request.params.day}`;
-  superagent(url)
-  console.log(results)
-  history => response.send(history)
-    .catch(console.error);
+app.get('/date/:month/:day',(request, response) => {
+  const url = `https://history.muffinlabs.com/date/12/20`;
+  
+  .then(console.log)
+  // history => response.send(history)
+    // .catch(console.error);
 });
 
 app.get('/test', (request, response) => response.send('Testing App'));
