@@ -11,7 +11,7 @@ const superagent = require('superagent');
 const app = express();
 const PORT = process.env.port || 3000;
 const CLIENT_URL = process.env.CLIENT_URL;
-// const CLIENT_URL = 
+// const CLIENT_URL =
 // const TOKEN = process.env.TOKEN;
 const DATABASE_URL = 'postgres://localhost:5432/thisday';
 // const DATABASE_URL = 'postgres://leoytnwtnffusx:55d229e7c81673dc2d26475f97b337fadf3be5beedacc15474ca42be89922afc@ec2-107-20-249-48.compute-1.amazonaws.com:5432/d1ue3bak1qpoqb'
@@ -74,11 +74,17 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
     .set(`api-key`, `${NOAA_API_TOKEN}`)
     .then(articles => response.send(articles))
     .then(console.log(response));
-    // .catch(console.error);
+  // .catch(console.error);
+});
+
+app.get('https://history.muffinlabs.com/date/:month/:day',(request, response) => {
+  const url = `https://history.muffinlabs.com/date/${request.params.month}/${request.params.day}`;
+  superagent(url)
+  console.log(results)
+  history => response.send(history)
+    .catch(console.error);
 });
 
 app.get('/test', (request, response) => response.send('Testing App'));
 
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
-
-
