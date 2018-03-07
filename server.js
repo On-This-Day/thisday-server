@@ -76,7 +76,7 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
     .catch(console.error);
 });
 
-app.get('/api/v1/users', (request, response) => {
+app.get('/api/v1/users', bodyparser, (request, response) => {
   client.query(`SELECT * FROM users;`)
     .then(results => response.send(results.rows))
     .catch(console.error);
