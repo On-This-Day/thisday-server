@@ -73,8 +73,13 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
   superagent(url)
     .set(`api-key`, `${NOAA_API_TOKEN}`)
     .then(articles => response.send(articles))
-    .then(console.log(response));
-    // .catch(console.error);
+    .catch(console.error);
+});
+
+app.get('/api/v1/users', (request, response) => {
+  client.query(`SELECT * FROM users;`)
+    .then(results => response.send(results.rows))
+    .catch(console.error);
 });
 
 app.get('/test', (request, response) => response.send('Testing App'));
