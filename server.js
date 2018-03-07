@@ -18,7 +18,6 @@ const DATABASE_URL = 'postgres://localhost:5432/thisday';
 const NOAA_API_TOKEN = process.env.NOAA_TOKEN;
 const NYT_API_KEY = process.env.NYT_API_KEY;
 
-
 //API keys go here
 app.use(cors());
 
@@ -30,6 +29,7 @@ client.on('error', err => console.error(err));
 //Application Middleware goes here
 
 // url: 'https://api.nytimes.com/svc/archive/v1/2016/1.json?' + NYT_API_KEY,
+
 app.get('/nyt/articles/:year/:month', bodyparser, (request, response) => {
   const url = `https://api.nytimes.com/svc/archive/v1/${request.params.year}/${request.params.month}.json?`;
   superagent(url)
