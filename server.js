@@ -78,6 +78,10 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
 
 app.get('/api/v1/users', (request, response) => {
   client.query(`SELECT * FROM users;`)
+    .then(results => {
+      console.log(results);
+      return results;
+    })
     .then(results => response.send(results.rows))
     .catch(console.error);
 });
