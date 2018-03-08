@@ -53,7 +53,7 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
       '09': 30,
       '10': 31,
       '11': 30,
-      '12': 31
+      '12': 31,
     };
     if(parseInt(array[2]) !== months[array[1]]) array[2]++;
     else if(array[1] === '12'){
@@ -86,4 +86,9 @@ app.get('/', (request, response) => response.send('Testing App'));
 
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
 
-
+app.delete('/api/v1/users/:username', bodyparser, (request, response) => {
+  console.log('deleting', request.params.username);
+  client.query(`DELETE FROM users WHERE username=$1;`, [request.params.username])
+    .then(console.log('deleted'))
+    .catch(console.error);
+});
