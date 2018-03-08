@@ -4,7 +4,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
-const bodyparser = require('body-parser').urlencoded({extend: true});
+const bodyparser = require('body-parser').urlencoded({extended: true});
 const superagent = require('superagent');
 
 //application setup
@@ -76,7 +76,7 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
     .catch(console.error);
 });
 
-app.get('/api/v1/users', bodyparser, (request, response) => {
+app.get('/api/v1/users', (request, response) => {
   client.query(`SELECT * FROM users;`)
     .then(results => response.send(results.rows))
     .catch(console.error);
