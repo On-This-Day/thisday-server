@@ -9,7 +9,7 @@ const superagent = require('superagent');
 
 //application setup
 const app = express();
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 const CLIENT_URL = process.env.CLIENT_URL;
 const DATABASE_URL = 'postgres://localhost:5432/thisday';
 //const DATABASE_URL = process.env.DATABASE_URL;
@@ -94,10 +94,6 @@ app.post('/api/v1/newUser', bodyparser, (request, response) => {
     .catch(console.error);
 });
 
-app.get('/', (request, response) => response.send('Testing App'));
-
-app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
-
 app.delete('/api/v1/users/:username', bodyparser, (request, response) => {
   client.query(`DELETE FROM users WHERE username=$1;`, [request.params.username])
     .then(console.log('deleted'))
@@ -110,3 +106,6 @@ app.put('/api/v1/users', bodyparser, (request, response) => {
     .then(console.log('updated'))
     .catch(console.error);
 });
+
+app.get('*', (request, response) => response.redirect(CLIENT_URL));
+app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
