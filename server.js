@@ -92,8 +92,16 @@ app.delete('/api/v1/users/:username', bodyparser, (request, response) => {
     .catch(console.error);
 });
 
-app.put('/api/v1/users/:username', bodyparser, (request, response) => {
-  client.query(`INSERT INTO users  ('$1', '9999', '2000-01-01');`, [request.params.username])
+app.post('/api/v1/users/:username', (request, response) => {
+  console.log('trying to add');
+  client.query(`INSERT INTO users VALUES ($1, 9999, '2000-01-01');`, [request.params.username])
     .then(console.log('added'))
+    .catch(console.error);
+});
+
+app.put('/api/v1/users', bodyparser, (request, response) => {
+  client.query(`UPDATE users SET fav_date=$2 WHERE username=$1;`, 
+    [request.body.username, request.body.date])
+    .then(console.log('updated'))
     .catch(console.error);
 });
