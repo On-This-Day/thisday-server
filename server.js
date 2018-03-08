@@ -11,8 +11,8 @@ const superagent = require('superagent');
 const app = express();
 const PORT = process.env.port || 3000;
 const CLIENT_URL = process.env.CLIENT_URL;
-// const DATABASE_URL = 'postgres://localhost:5432/thisday';
-const DATABASE_URL = process.env.DATABASE_URL;
+const DATABASE_URL = 'postgres://localhost:5432/thisday';
+// const DATABASE_URL = process.env.DATABASE_URL;
 
 //'postgres://leoytnwtnffusx:55d229e7c81673dc2d26475f97b337fadf3be5beedacc15474ca42be89922afc@ec2-107-20-249-48.compute-1.amazonaws.com:5432/d1ue3bak1qpoqb'
 const NOAA_API_TOKEN = process.env.NOAA_API_TOKEN;
