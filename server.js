@@ -9,7 +9,7 @@ const superagent = require('superagent');
 
 //application setup
 const app = express();
-const PORT = process.env.port || 3000;
+const PORT = process.env.port;
 const CLIENT_URL = process.env.CLIENT_URL;
 // const DATABASE_URL = 'postgres://localhost:5432/thisday';
 const DATABASE_URL = process.env.DATABASE_URL;
