@@ -11,11 +11,11 @@ const superagent = require('superagent');
 const app = express();
 const PORT = process.env.port || 3000;
 const CLIENT_URL = process.env.CLIENT_URL;
-// const CLIENT_URL = 
-// const TOKEN = process.env.TOKEN;
-const DATABASE_URL = 'postgres://localhost:5432/thisday';
-// const DATABASE_URL = 'postgres://leoytnwtnffusx:55d229e7c81673dc2d26475f97b337fadf3be5beedacc15474ca42be89922afc@ec2-107-20-249-48.compute-1.amazonaws.com:5432/d1ue3bak1qpoqb'
-const NOAA_API_TOKEN = process.env.NOAA_TOKEN;
+// const DATABASE_URL = 'postgres://localhost:5432/thisday';
+const DATABASE_URL = process.env.DATABASE_URL;
+
+//'postgres://leoytnwtnffusx:55d229e7c81673dc2d26475f97b337fadf3be5beedacc15474ca42be89922afc@ec2-107-20-249-48.compute-1.amazonaws.com:5432/d1ue3bak1qpoqb'
+const NOAA_API_TOKEN = process.env.NOAA_API_TOKEN;
 const NYT_API_KEY = process.env.NYT_API_KEY;
 
 //API keys go here
@@ -71,18 +71,18 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
   let date = `${request.params.year}-${request.params.month}-${request.params.day}`;
   const url = `https://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GHCND&locationid=CITY:US530018&startdate=${date}&enddate=${dateIncrease(date)}&units=standard`;
   superagent(url)
-    .set(`api-key`, `${NOAA_API_TOKEN}`)
-    .then(articles => response.send(articles))
+    .set(`token`, `${NOAA_API_TOKEN}`)
+    .then(weather => response.send(weather))
     .catch(console.error);
 });
 
-app.get('/api/v1/users', (request, response) => {
+app.get('/api/v1/users', bodyparser, (request, response) => {
   client.query(`SELECT * FROM users;`)
     .then(results => response.send(results.rows))
     .catch(console.error);
 });
 
-app.get('/test', (request, response) => response.send('Testing App'));
+app.get('/', (request, response) => response.send('Testing App'));
 
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
 
