@@ -4,7 +4,7 @@
 const express = require('express');
 const cors = require('cors');
 const pg = require('pg');
-const bodyparser = require('body-parser').urlencoded({extend: true});
+const bodyparser = require('body-parser').urlencoded({extended: true});
 const superagent = require('superagent');
 
 //application setup
@@ -79,6 +79,18 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
 app.get('/api/v1/users', bodyparser, (request, response) => {
   client.query(`SELECT * FROM users;`)
     .then(results => response.send(results.rows))
+    .catch(console.error);
+});
+
+app.post('/api/v1/newUser', bodyparser, (request, response) => {
+  console.log('inside post');
+  client.query(`INSERT INTO users(username, pin, fav_date)VALUES($1, $2, $3);`,
+    [
+      request.body.username,
+      request.body.pin,
+      request.body.fav_date
+    ])
+    .then(() => response.send('Update Complete'))
     .catch(console.error);
 });
 
