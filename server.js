@@ -11,8 +11,8 @@ const superagent = require('superagent');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const CLIENT_URL = process.env.CLIENT_URL;
-// const DATABASE_URL = 'postgres://localhost:5432/thisday';
-const DATABASE_URL = process.env.DATABASE_URL;
+const DATABASE_URL = 'postgres://localhost:5432/thisday';
+//const DATABASE_URL = process.env.DATABASE_URL;
 
 //'postgres://leoytnwtnffusx:55d229e7c81673dc2d26475f97b337fadf3be5beedacc15474ca42be89922afc@ec2-107-20-249-48.compute-1.amazonaws.com:5432/d1ue3bak1qpoqb'
 const NOAA_API_TOKEN = process.env.NOAA_API_TOKEN;
@@ -53,7 +53,7 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
       '09': 30,
       '10': 31,
       '11': 30,
-      '12': 31
+      '12': 31,
     };
     if(parseInt(array[2]) !== months[array[1]]) array[2]++;
     else if(array[1] === '12'){
@@ -76,14 +76,36 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
     .catch(console.error);
 });
 
-app.get('/api/v1/users', bodyparser, (request, response) => {
+app.get('/api/v1/users', (request, response) => {
   client.query(`SELECT * FROM users;`)
     .then(results => response.send(results.rows))
     .catch(console.error);
 });
 
+app.post('/api/v1/newUser', bodyparser, (request, response) => {
+  console.log('inside post');
+  client.query(`INSERT INTO users(username, pin, fav_date)VALUES($1, $2, $3);`,
+    [
+      request.body.username,
+      request.body.pin,
+      request.body.fav_date
+    ])
+    .then(() => response.send('Update Complete'))
+    .catch(console.error);
+});
+
+app.delete('/api/v1/users/:username', bodyparser, (request, response) => {
+  client.query(`DELETE FROM users WHERE username=$1;`, [request.params.username])
+    .then(console.log('deleted'))
+    .catch(console.error);
+});
+
+app.put('/api/v1/users', bodyparser, (request, response) => {
+  client.query(`UPDATE users SET fav_date=$2 WHERE username=$1;`, 
+    [request.body.username, request.body.date])
+    .then(console.log('updated'))
+    .catch(console.error);
+});
+
 app.get('*', (request, response) => response.redirect(CLIENT_URL));
-
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
-
-
