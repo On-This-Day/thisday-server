@@ -82,7 +82,7 @@ app.get('/api/v1/users', bodyparser, (request, response) => {
     .catch(console.error);
 });
 
-app.get('/test', (request, response) => response.send('Testing App'));
+app.get('/', (request, response) => response.send('Testing App'));
 
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
 
