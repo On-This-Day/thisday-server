@@ -83,6 +83,7 @@ app.get('/api/v1/users', (request, response) => {
 });
 
 app.get('/', (request, response) => response.send('Testing App'));
+app.get('*', (req, res) => res.redirect(CLIENT_URL));
 
 app.listen(PORT, () => console.log(`Listening on Port: ${PORT}`));
 
