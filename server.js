@@ -78,12 +78,15 @@ app.get('/noaa/weather/:year/:month/:day', bodyparser, (request, response) => {
 
 app.get('/api/v1/users', (request, response) => {
   client.query(`SELECT * FROM users;`)
+    .then(results => {
+      console.log(results);
+      return results;
+    })
     .then(results => response.send(results.rows))
     .catch(console.error);
 });
 
 app.post('/api/v1/newUser', bodyparser, (request, response) => {
-  console.log('inside post');
   client.query(`INSERT INTO users(username, pin, fav_date)VALUES($1, $2, $3);`,
     [
       request.body.username,
@@ -96,14 +99,12 @@ app.post('/api/v1/newUser', bodyparser, (request, response) => {
 
 app.delete('/api/v1/users/:username', bodyparser, (request, response) => {
   client.query(`DELETE FROM users WHERE username=$1;`, [request.params.username])
-    .then(console.log('deleted'))
     .catch(console.error);
 });
 
 app.put('/api/v1/users', bodyparser, (request, response) => {
   client.query(`UPDATE users SET fav_date=$2 WHERE username=$1;`, 
     [request.body.username, request.body.date])
-    .then(console.log('updated'))
     .catch(console.error);
 });
 
